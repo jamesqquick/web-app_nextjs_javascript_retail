@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+
+@import url("https://fonts.googleapis.com/css?family=Ruda:400,500,600,700,800");
+
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@700&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300&display=swap");
+
+/* COLORS */
+
+:root {
+  --rich-brown: #1b0800;
+  --dark-brown: #2b2118;
+  --brown: #451400;
+  --light-brown: #6f1a07;
+  --pastel-brown: #a85913;
+
+  --white: #ffffff;
+  --cream: #f7f2ed;
+  --almond: #ede1d5;
+
+  --red: #fa4141;
+  --bright-red: #ff5454;
+  --lime-green: #70f8ba;
+  --green: #009b72;
+  --purple: #6761a8;
+  --blue: #009ddc;
+  --sky-blue: #69ddff;
+}
+
+/* EFFECTS */
+
+:root {
+  --ui-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 4px 5px 0 rgba(0, 0, 0, 0.06), 0 1px 10px 0 rgba(0, 0, 0, 0.08);
+  fill: rgba(0, 0, 0, 0.54);
+  --ui-shadow-border: 1px solid rgba(0, 0, 0, 0.14);
+}
+
+/* FONTS */
+
+:root {
+  --brand-font: "Anonymous Pro", monospace;
+  --header-font: "Oswald", sans-serif;
+  --section-font: "Lato", sans-serif;
+  --core-font: "Ruda", sans-serif;
+  --mono-font: "Fira Code", monospace;
+}

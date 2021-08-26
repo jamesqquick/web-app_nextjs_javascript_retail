@@ -1,0 +1,75 @@
+.actionBanner {
+  background-color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 12px;
+  /*margin: 12px 0;*/
+  margin-bottom: 12px;
+  margin-top: 12px;
+
+  border: 1px solid #d4cbc7;
+}
+
+.actionBanner__buttons {
+  display: flex;
+}
+
+.actionBanner__messageContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.actionBanner__message {
+  margin-right: 48px;
+
+  color: var(--light-brown);
+  font-weight: 500;
+  font-size: 22px;
+  font-family: var(--header-font);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.actionBanner__buttonSeparator {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-left: 20px;
+
+  font-family: var(--core-font);
+  font-size: 16px;
+  text-align: center;
+  text-transform: uppercase;
+
+  user-select: none;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 640px),
+  (min-device-width: 321px) and (max-device-width: 680px) and (orientation: landscape) {
+  .actionBanner {
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    padding-top: 20px;
+  }
+
+  .actionBanner__buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+
+  .actionBanner__message {
+    font-size: 24px;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .actionBanner__buttonSeparator {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+}

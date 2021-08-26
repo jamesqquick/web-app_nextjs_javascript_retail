@@ -1,0 +1,16 @@
+.pageLayout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.pageLayout__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  background-color: var(--cream);
+}

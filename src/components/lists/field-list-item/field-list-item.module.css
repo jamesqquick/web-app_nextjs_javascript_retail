@@ -1,0 +1,54 @@
+.fieldListItem {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+
+:host:last-child > .fieldListItem {
+  margin-bottom: 0;
+}
+
+.fieldListItem__key {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.fieldListItem__success {
+  margin-left: 10px;
+
+  color: var(--green);
+  letter-spacing: 0.5px;
+}
+
+.fieldListItem__danger {
+  margin-left: 10px;
+
+  color: var(--red);
+  letter-spacing: 0.5px;
+}
+
+.emailListItem__verifyButton {
+  margin-left: 10px;
+
+  font-size: 16px;
+  font-weight: bold;
+  font-family: var(--core-font);
+  color: var(--red);
+  letter-spacing: 0.5px;
+  text-decoration: underline;
+
+  cursor: pointer;
+}
+
+.fieldListItem__value {
+  padding: 16px 0;
+  border-radius: 3px;
+  border-bottom: 1px solid var(--pastel-brown);
+
+  background: var(--cream);
+
+  font-family: var(--core-font);
+  font-size: 16px;
+
+  outline: none;
+}

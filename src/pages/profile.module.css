@@ -1,0 +1,15 @@
+.profileDetailsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 32px;
+
+  padding: 16px;
+
+  color: var(--brown);
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .profileDetailsGrid {
+    grid-template-columns: 1fr;
+  }
+}

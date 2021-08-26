@@ -1,0 +1,16 @@
+.loader {
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader--dark {
+  color: var(--brown);
+}
+
+.loader--light {
+  color: var(--white);
+}
