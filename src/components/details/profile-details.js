@@ -1,15 +1,24 @@
 import { FieldListItem } from "@/components/lists/field-list-item/field-list-item";
 import { List } from "@/components/lists/list/list";
+import { useUser } from "@auth0/nextjs-auth0";
 import React from "react";
 import styles from "./detail-list.module.css";
 
 export const ProfileDetails = () => {
   const listTitle = "Your Details";
 
+  const { user } = useUser();
+
+  if (!user) {
+    return null;
+  }
+
+  const { name, email, phoneNumber } = user;
+
   const customer = {
-    name: "Audy Zero",
-    email: "audy.zero@example.com",
-    phoneNumber: "+1 123456789012",
+    name,
+    email,
+    phoneNumber: phoneNumber || "None",
   };
 
   if (customer) {

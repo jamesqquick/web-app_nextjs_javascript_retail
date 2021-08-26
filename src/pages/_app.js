@@ -1,3 +1,4 @@
+import { UserProvider } from "@auth0/nextjs-auth0";
 import Head from "next/head";
 import React from "react";
 import "../styles/globals.css";
@@ -21,7 +22,9 @@ function App({ Component, pageProps }) {
         />
         <title>WHATABYTE</title>
       </Head>
-      <Component {...pageProps} />
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
     </>
   );
 }

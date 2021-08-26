@@ -1,3 +1,4 @@
+import { AuthenticationButton } from "@/components/buttons/authentication-button";
 import { NavBarBrand } from "@/components/nav/nav-bar-brand/nav-bar-brand";
 import { NavBarTab } from "@/components/nav/nav-bar-tab/nav-bar-tab";
 import Link from "next/link";
@@ -16,6 +17,9 @@ export const NavBar = () => {
 
         <div className={styles.navBar__tabs}>
           <NavBarTab label="MyByte" path="/profile" />
+        </div>
+        <div className={styles.navBar__actions}>
+          <AuthenticationButton />
         </div>
       </nav>
     </div>
