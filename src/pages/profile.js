@@ -4,7 +4,7 @@ import { ContentLayout } from "@/components/layouts/content-layout/content-layou
 import { PageLayout } from "@/components/layouts/page-layout/page-layout";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import React from "react";
-import styles from "src/pages/profile.module.css";
+import styles from "./profile.module.css";
 
 const Profile = () => {
   return (

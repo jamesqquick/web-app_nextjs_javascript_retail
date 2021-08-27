@@ -703,3 +703,5 @@ MigrationBackup/
 build/
 
 .vercel
+
+prisma/dev.db

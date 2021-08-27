@@ -67,6 +67,16 @@ Install the project dependencies:
 npm install
 ```
 
+### Set up the database
+
+This project uses Next.js API routes and Prisma to quickly create CRUD endpoints.
+
+Run the following command to apply the most recent migration (`prisma/migrations/...`) and start the database:
+
+```bash
+npx prisma migrate dev
+```
+
 ### Run the project
 
 With the Auth0 configuration set, run the Next.js application by issuing the following command:
@@ -82,3 +92,9 @@ Visit [`http://localhost:4040/`](http://localhost:4040/) to access the home page
 Sign up or log in to access the profile page, [`http://localhost:4040/profile`](http://localhost:4040/profile):
 
 ![WHATABYTE profile page](https://images.ctfassets.net/23aumh6u8s0i/2VP6xHagmxSIt5mS99y22I/9da44a8db43ba15eb06046a41c13a317/whatabyte-profile.png)
+
+Sign up or log in to access the API testing harness, [`http://localhost:4040/api-tester`](http://localhost:4040/api-tester):
+
+![WHATABYTE API testing harness](https://images.ctfassets.net/23aumh6u8s0i/39t6j01ve5y3CnZSHdYUjm/2dfba41ada48785ba7e7593c8531ac93/api-tester.png)
+
+Use the buttons to test making different CRUD requests to the Next.js API routes.
