@@ -1,6 +1,6 @@
+import { prisma } from "@/utils/prisma";
+import { getProfile } from "@/utils/profile";
 import { getSession, withApiAuthRequired } from "@auth0/nextjs-auth0";
-import { prisma } from "src/utils/prisma";
-import { getProfile } from "src/utils/profile";
 
 export default withApiAuthRequired(async function handler(req, res) {
   const { user } = getSession(req, res);

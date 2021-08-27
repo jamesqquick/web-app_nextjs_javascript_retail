@@ -1,10 +1,10 @@
 import { Button } from "@/components/buttons/button/button";
 import { ContentLayout } from "@/components/layouts/content-layout/content-layout";
 import { PageLayout } from "@/components/layouts/page-layout/page-layout";
+import { getRandomPointsValue } from "@/utils/random";
 import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { getRandomPointsValue } from "src/utils/random";
 import styles from "./api-tester.module.css";
 
 const ApiTester = () => {
