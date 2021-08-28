@@ -4,18 +4,48 @@ import { useRouter } from "next/router";
 export const withProfile = (WrappedComponent) => {
   return () => {
     const router = useRouter();
-    const { asPath } = router;
-    const { profile } = useProfile();
+    const { pathname, asPath, query } = router;
+    const { email, code, success, message } = query;
+
+    const { profile, customer } = useProfile();
 
     const newProfilePath = "/new-profile";
     const profilePath = "/profile";
+    const emailVerificationPath = "/email-verification";
 
     /**
-     * If profile is undefined it means that we have not executed
+     * If profile or customer are undefined, it means that we have not executed
      * an API call to retrieve the profile information from the
      * API server.
      */
-    if (profile === undefined) {
+    if (profile === undefined || customer === undefined) {
+      return null;
+    }
+
+    /**
+     * If users have their email already verified and they want to access
+     * the email verification page, redirect them to the profile page
+     */
+    if (pathname === emailVerificationPath && customer.emailVerified) {
+      router.push(profilePath);
+      return null;
+    }
+
+    /**
+     * If users don't have their email already verified and they want to access
+     * the email verification page, clean up the query params, and direct them
+     * the email verification page.
+     */
+    if (
+      pathname === emailVerificationPath &&
+      !customer.emailVerified &&
+      email === customer.email &&
+      code === "success"
+    ) {
+      router.push({
+        pathname: "/email-verification",
+        query: { message, email, success },
+      });
       return null;
     }
 
