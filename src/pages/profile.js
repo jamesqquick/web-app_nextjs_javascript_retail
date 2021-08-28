@@ -2,6 +2,7 @@ import { ProfileDetails } from "@/components/details/profile-details";
 import { RewardsDetails } from "@/components/details/rewards-details";
 import { ContentLayout } from "@/components/layouts/content-layout/content-layout";
 import { PageLayout } from "@/components/layouts/page-layout/page-layout";
+import { withProfile } from "@/containers/with-profile";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import React from "react";
 import styles from "./profile.module.css";
@@ -23,4 +24,4 @@ const Profile = () => {
   );
 };
 
-export default withPageAuthRequired(Profile);
+export default withPageAuthRequired(withProfile(Profile));

@@ -1,16 +1,60 @@
+import { Button } from "@/components/buttons/button/button";
 import { FieldListItem } from "@/components/lists/field-list-item/field-list-item";
 import { List } from "@/components/lists/list/list";
-import React from "react";
+import { useProfile } from "@/context/profile-context";
+import { getRandomPointsValue } from "@/utils/random";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styles from "./detail-list.module.css";
 
 export const RewardsDetails = () => {
+  const { rewards, updateRewards } = useProfile();
+  const [randomPointsAdjustment, setRandomPointsAdjustment] =
+    useState(undefined);
+
   const listTitle = "MyByte Rewards";
 
-  const rewards = {
-    accountId: "987654321",
-    balance: 239,
-    createdAt: new Date().getTime(),
+  const adjustRewardsBalance = async () => {
+    if (!rewards) {
+      return null;
+    }
+
+    try {
+      const { accountId } = rewards;
+
+      const { data } = await axios.post("/api/accounts/adjust", {
+        id: accountId,
+        points: randomPointsAdjustment,
+      });
+
+      const { id, createdAt, balance } = data;
+
+      const rewardsUpdate = {
+        accountId: id,
+        createdAt,
+        balance,
+      };
+
+      updateRewards(rewardsUpdate);
+
+      setRandomPointsAdjustment(getRandomPointsValue());
+    } catch (error) {
+      if (error.response) {
+        const { data } = error.response;
+        const { message } = data;
+
+        console.error(message);
+      }
+    }
   };
+
+  useEffect(() => {
+    setRandomPointsAdjustment(getRandomPointsValue());
+  }, []);
+
+  if (!rewards) {
+    return <List title={listTitle} />;
+  }
 
   if (rewards) {
     const { accountId, balance, createdAt } = rewards;
@@ -46,6 +90,10 @@ export const RewardsDetails = () => {
             <FieldListItem key={detail.label} {...detail} />
           ))}
         </List>
+        <Button
+          label={`Adjust Points Balance by ${randomPointsAdjustment}`}
+          handleClick={() => adjustRewardsBalance()}
+        />
       </div>
     );
   }

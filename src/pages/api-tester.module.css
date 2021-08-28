@@ -16,7 +16,8 @@
 
 .apiTesterResponseContainer {
   width: 100%;
-  min-height: 300px;
+  min-height: 360px;
+  height: 360px;
   padding: 16px;
   margin-top: 32px;
   background: var(--dark-brown);

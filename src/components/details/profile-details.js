@@ -1,25 +1,20 @@
+import { Button } from "@/components/buttons/button/button";
 import { FieldListItem } from "@/components/lists/field-list-item/field-list-item";
 import { List } from "@/components/lists/list/list";
-import { useUser } from "@auth0/nextjs-auth0";
+import { useProfile } from "@/context/profile-context";
+import { useRouter } from "next/router";
 import React from "react";
 import styles from "./detail-list.module.css";
 
 export const ProfileDetails = () => {
+  const router = useRouter();
+  const { customer } = useProfile();
+
   const listTitle = "Your Details";
 
-  const { user } = useUser();
-
-  if (!user) {
-    return null;
+  if (!customer) {
+    return <List title={listTitle} />;
   }
-
-  const { name, email, phoneNumber } = user;
-
-  const customer = {
-    name,
-    email,
-    phoneNumber: phoneNumber || "None",
-  };
 
   if (customer) {
     const { name, email, phoneNumber } = customer;
@@ -49,6 +44,10 @@ export const ProfileDetails = () => {
             <FieldListItem key={detail.label} {...detail} />
           ))}
         </List>
+        <Button
+          label="Edit Profile"
+          handleClick={() => router.push("/edit-profile")}
+        />
       </div>
     );
   }

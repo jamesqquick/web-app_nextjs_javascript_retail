@@ -1,3 +1,4 @@
+import { ProfileProvider } from "@/context/profile-context";
 import { UserProvider } from "@auth0/nextjs-auth0";
 import Head from "next/head";
 import React from "react";
@@ -23,7 +24,9 @@ function App({ Component, pageProps }) {
         <title>WHATABYTE</title>
       </Head>
       <UserProvider>
-        <Component {...pageProps} />
+        <ProfileProvider>
+          <Component {...pageProps} />
+        </ProfileProvider>
       </UserProvider>
     </>
   );
