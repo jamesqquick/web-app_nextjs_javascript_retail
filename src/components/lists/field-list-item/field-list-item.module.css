@@ -9,6 +9,8 @@
 }
 
 .fieldListItem__key {
+  display: flex;
+  align-items: center;
   font-size: 16px;
   font-weight: bold;
 }
@@ -51,4 +53,43 @@
   font-size: 16px;
 
   outline: none;
+}
+
+.chip {
+  height: 32px;
+
+  padding-left: 16px;
+  padding-right: 16px;
+
+  border-radius: 16px;
+
+  margin-left: 16px;
+
+  font-family: var(--core-font);
+  font-weight: bold;
+  color: #451400;
+  font-size: 14px;
+  text-transform: uppercase;
+  line-height: 32px;
+
+  user-select: none;
+}
+
+.chipButton {
+  cursor: pointer;
+}
+
+.chipDanger {
+  background-color: #ffc4c4;
+  border: 1px solid #d0021b;
+}
+
+.chipSuccess {
+  background-color: #e5e9d0;
+  border: 1px solid #90a035;
+}
+
+.chipInfo {
+  background-color: #fff;
+  border: 1px solid #786259;
 }

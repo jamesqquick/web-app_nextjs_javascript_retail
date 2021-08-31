@@ -1,3 +1,4 @@
+import { EmailProvider } from "@/context/email-status-context";
 import { ProfileProvider } from "@/context/profile-context";
 import { UserProvider } from "@auth0/nextjs-auth0";
 import Head from "next/head";
@@ -25,7 +26,9 @@ function App({ Component, pageProps }) {
       </Head>
       <UserProvider>
         <ProfileProvider>
-          <Component {...pageProps} />
+          <EmailProvider>
+            <Component {...pageProps} />
+          </EmailProvider>
         </ProfileProvider>
       </UserProvider>
     </>

@@ -1,4 +1,5 @@
 import { Button } from "@/components/buttons/button/button";
+import { EmailListItem } from "@/components/lists/field-list-item/email-list-item";
 import { FieldListItem } from "@/components/lists/field-list-item/field-list-item";
 import { List } from "@/components/lists/list/list";
 import { useProfile } from "@/context/profile-context";
@@ -40,9 +41,13 @@ export const ProfileDetails = () => {
     return (
       <div className={styles.detailList}>
         <List title={listTitle}>
-          {customerDetails.fields.map((detail) => (
-            <FieldListItem key={detail.label} {...detail} />
-          ))}
+          {customerDetails.fields.map((detail) =>
+            detail.type === "email" ? (
+              <EmailListItem key={detail.label} {...detail} />
+            ) : (
+              <FieldListItem key={detail.label} {...detail} />
+            )
+          )}
         </List>
         <Button
           label="Edit Profile"

@@ -1,3 +1,4 @@
+import { sendVerificationEmail } from "@/utils/auth0";
 import { prisma } from "@/utils/prisma";
 import {
   getAccessToken,
@@ -30,16 +31,14 @@ export default withApiAuthRequired(async function handler(req, res) {
       const { email_verified: emailVerifiedFromAuth0 } = data;
 
       if (emailVerifiedFromAuth0) {
-        const customer = await prisma.customer.update({
-          where: {
-            id: customerId,
-          },
-          data: {
-            emailVerified: emailVerifiedFromAuth0,
-          },
-        });
+        res.status(409).json({ message: "email already verified" });
+        return;
+      }
 
-        res.status(200).json(customer);
+      if (!emailVerifiedFromAuth0) {
+        await sendVerificationEmail(customerId);
+
+        res.status(204).end();
         return;
       }
     } catch (error) {
@@ -51,16 +50,9 @@ export default withApiAuthRequired(async function handler(req, res) {
         return;
       }
 
-      if (error.code === "P2025") {
-        res.status(404).json({ message: "profile not found" });
-        return;
-      }
-
       res.status(500).json({
-        message:
-          error.message || "can't complete verification, try again later",
+        message: error.message || "unable to request verification email",
       });
-      return;
     }
   }
 

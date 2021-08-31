@@ -1,64 +1,32 @@
-import { Button } from "@/components/buttons/button/button";
-import { ContentLayout } from "@/components/layouts/content-layout/content-layout";
-import { PageLayout } from "@/components/layouts/page-layout/page-layout";
-import { withProfile } from "@/containers/with-profile";
-import { useProfile } from "@/context/profile-context";
+import { Loader } from "@/components/loader/loader";
+import { withEmailVerificationGuard } from "@/containers/with-email-verification-guard";
+import { useEmailStatus } from "@/context/email-status-context";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import styles from "./email-verification.module.css";
 
 const EmailVerification = () => {
   const router = useRouter();
-  const { query } = router;
-  const { message, email, success } = query;
-  const { customer, updateCustomer } = useProfile();
+  const {
+    isCustomerEmailVerified,
+    isCustomerEmailUnverified,
+    markEmailAsAuth0Verified,
+  } = useEmailStatus();
 
   useEffect(() => {
-    const refetch = async () => {
-      try {
-        const { data } = await axios.post(
-          "/api/customers/complete-email-verification"
-        );
-
-        updateCustomer(data);
-      } catch (error) {
-        if (error.response) {
-          const { data } = error.response;
-          const { message } = data;
-
-          console.error(message);
-        }
-      }
-    };
-
-    if (!customer.emailVerified) {
-      refetch();
+    if (isCustomerEmailUnverified) {
+      markEmailAsAuth0Verified();
+      router.push("/profile");
     }
-  }, [customer]);
 
-  return (
-    <PageLayout>
-      <ContentLayout
-        title="Email Verification"
-        description={message}
-        documentTitle="Email Verification"
-      >
-        <div className={styles.emailVerificationContainer}>
-          {success && (
-            <>
-              <h2>{email} verified!</h2>
-              <Button
-                label="Visit your account"
-                handleClick={() => router.push("/profile")}
-              />
-            </>
-          )}
-        </div>
-      </ContentLayout>
-    </PageLayout>
-  );
+    if (isCustomerEmailVerified) {
+      router.push("/profile");
+    }
+  }, [isCustomerEmailVerified, isCustomerEmailUnverified]);
+
+  return <Loader variant="light" />;
 };
 
-export default withPageAuthRequired(withProfile(EmailVerification));
+export default withPageAuthRequired(
+  withEmailVerificationGuard(EmailVerification)
+);
