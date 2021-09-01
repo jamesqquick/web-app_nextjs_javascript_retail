@@ -1,4 +1,4 @@
-import { ProfileProvider } from "@/context/profile-context";
+import { ProfileProvider } from "@/context/progressive-profiling-context";
 import { UserProvider } from "@auth0/nextjs-auth0";
 import Head from "next/head";
 import React from "react";

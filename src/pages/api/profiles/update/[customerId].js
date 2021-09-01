@@ -4,7 +4,7 @@ import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 
 export default withApiAuthRequired(async function handler(req, res) {
   const { customerId } = req.query;
-  const data = req.body;
+  const { customer, rewards } = req.body;
 
   const existingCustomer = await prisma.customer.findUnique({
     where: {
@@ -12,21 +12,26 @@ export default withApiAuthRequired(async function handler(req, res) {
     },
   });
 
-  if (!existingCustomer) {
+  const existingAccount = await prisma.account.findUnique({
+    where: { customerId },
+  });
+
+  if (!(existingCustomer && existingAccount)) {
     res.status(404).json({ message: "profile not found" });
     return;
   }
 
-  const customer = await prisma.customer.update({
+  const updatedCustomer = await prisma.customer.update({
     where: { id: customerId },
-    data: { ...data },
+    data: { ...customer },
   });
 
-  const account = await prisma.account.findUnique({
+  const updatedAccount = await prisma.account.update({
     where: { customerId },
+    data: { ...rewards },
   });
 
-  const profile = await getProfile(customer, account);
+  const profile = await getProfile(updatedCustomer, updatedAccount);
 
   res.status(200).json(profile);
 });

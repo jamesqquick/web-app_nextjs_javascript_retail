@@ -1,20 +1,20 @@
 import { Button } from "@/components/buttons/button/button";
 import { FieldListItem } from "@/components/lists/field-list-item/field-list-item";
 import { List } from "@/components/lists/list/list";
-import { useProfile } from "@/context/profile-context";
+import { useProgressiveProfiling } from "@/context/progressive-profiling-context";
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "./detail-list.module.css";
 
 export const ProfileDetails = () => {
   const router = useRouter();
-  const { customer } = useProfile();
+  const { customer } = useProgressiveProfiling();
 
   const listTitle = "Your Details";
 
-  if (!customer) {
-    return <List title={listTitle} />;
-  }
+  const editProfile = async () => {
+    await router.push("/profile/edit");
+  };
 
   if (customer) {
     const { name, email, phoneNumber } = customer;
@@ -44,13 +44,10 @@ export const ProfileDetails = () => {
             <FieldListItem key={detail.label} {...detail} />
           ))}
         </List>
-        <Button
-          label="Edit Profile"
-          handleClick={() => router.push("/edit-profile")}
-        />
+        <Button label="Edit Profile" handleClick={editProfile} />
       </div>
     );
   }
 
-  return null;
+  return <List title={listTitle} />;
 };
