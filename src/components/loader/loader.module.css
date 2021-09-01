@@ -7,10 +7,10 @@
   align-items: center;
 }
 
-.loader--dark {
+.dark {
   color: var(--brown);
 }
 
-.loader--light {
+.light {
   color: var(--white);
 }
