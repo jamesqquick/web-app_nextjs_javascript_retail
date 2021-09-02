@@ -21,11 +21,9 @@ const ApiTester = () => {
     return null;
   }
 
-  const { sub: customerId } = user;
-
-  const retrieveProfile = async () => {
+  const readProfile = async () => {
     try {
-      const { data } = await axios.get(`/api/profiles/retrieve/${customerId}`);
+      const { data } = await axios.get(`/api/profiles/read`);
 
       setResponse(JSON.stringify(data, null, 2));
     } catch (error) {
@@ -39,7 +37,7 @@ const ApiTester = () => {
 
   const deleteProfile = async () => {
     try {
-      const { data } = await axios.get(`/api/profiles/delete/${customerId}`);
+      const { data } = await axios.get(`/api/profiles/delete`);
 
       setResponse(JSON.stringify(data, null, 2));
     } catch (error) {
@@ -71,10 +69,12 @@ const ApiTester = () => {
 
   const updateProfile = async () => {
     try {
-      const { data } = await axios.put(`/api/profiles/update/${customerId}`, {
-        name: "Audy Cero",
-        email: "audy@example.com",
-        emailVerified: false,
+      const { data } = await axios.put(`/api/profiles/update`, {
+        customer: {
+          name: "Audi Ceroth",
+          email: "audy@example.com",
+          emailVerified: false,
+        },
       });
 
       setResponse(JSON.stringify(data, null, 2));
@@ -89,8 +89,7 @@ const ApiTester = () => {
 
   const increaseBalance = async () => {
     try {
-      const { data } = await axios.put(`/api/accounts/adjust/`, {
-        customerId,
+      const { data } = await axios.put(`/api/accounts/balance/update`, {
         points: randomPointsAdjustment,
       });
 
@@ -114,7 +113,7 @@ const ApiTester = () => {
       >
         <div className={styles.profileDetailsGrid}>
           <div className={styles.apiTesterButtons}>
-            <Button label="Get Profile" handleClick={() => retrieveProfile()} />
+            <Button label="Get Profile" handleClick={() => readProfile()} />
             <Button
               label="Create Profile"
               handleClick={() => createProfile()}
