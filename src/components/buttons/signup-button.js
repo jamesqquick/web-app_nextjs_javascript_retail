@@ -4,7 +4,7 @@ import React from "react";
 export const SignupButton = () => {
   return (
     <Button
-      handleClick={() => (window.location.href = "/api/signup")}
+      handleClick={() => (window.location.href = "/api/auth/signup")}
       variant="solid"
       label="Sign Up Today"
     />
