@@ -10,18 +10,16 @@ const EmailVerification = () => {
   const {
     isCustomerEmailVerified,
     isCustomerEmailUnverified,
-    markEmailAsAuth0Verified,
+    completeEmailVerification,
   } = useEmailStatus();
 
   useEffect(() => {
-    if (isCustomerEmailUnverified) {
-      markEmailAsAuth0Verified();
-      router.push("/profile");
-    }
-
     if (isCustomerEmailVerified) {
       router.push("/profile");
+      return;
     }
+
+    completeEmailVerification();
   }, [isCustomerEmailVerified, isCustomerEmailUnverified]);
 
   return <Loader variant="light" />;

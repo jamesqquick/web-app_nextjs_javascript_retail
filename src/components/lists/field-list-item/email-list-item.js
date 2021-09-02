@@ -14,8 +14,9 @@ export const EmailListItem = ({ label }) => {
     isCustomerRecordUpdating,
     isCustomerRecordUpdateError,
     emailVerificationMessage,
+    emailVerificationError,
     sendVerificationEmail,
-    updateCustomerRecord,
+    completeEmailVerification,
   } = useEmailStatus();
 
   return (
@@ -50,7 +51,7 @@ export const EmailListItem = ({ label }) => {
             onClick={sendVerificationEmail}
             className={`${styles.chip} ${styles.chipButton} ${styles.chipDanger}`}
           >
-            {emailVerificationMessage}
+            {emailVerificationError}
           </button>
         )}
         {isCustomerRecordUpdating && (
@@ -60,10 +61,10 @@ export const EmailListItem = ({ label }) => {
         )}
         {isCustomerRecordUpdateError && (
           <button
-            onClick={updateCustomerRecord}
+            onClick={completeEmailVerification}
             className={`${styles.chip} ${styles.chipButton} ${styles.chipDanger}`}
           >
-            {emailVerificationMessage}
+            {emailVerificationError}
           </button>
         )}
       </span>
