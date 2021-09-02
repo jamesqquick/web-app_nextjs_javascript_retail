@@ -2,9 +2,9 @@ import { useUser } from "@auth0/nextjs-auth0";
 import axios from "axios";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-const fetchProfileHelper = async (customerId) => {
+const fetchProfileHelper = async () => {
   try {
-    const { data } = await axios.get(`/api/profiles/retrieve/${customerId}`);
+    const { data } = await axios.get(`/api/profiles/read`);
 
     return { data };
   } catch (error) {
@@ -27,11 +27,9 @@ const updateProfileHelper = async (updatedProfileData) => {
     return { error: "can't update profile, try again later" };
   }
 
-  const { id } = customer;
-
   try {
     const { data } = await axios.post(
-      `/api/profiles/update/${id}`,
+      `/api/profiles/update/`,
       updatedProfileData
     );
 
@@ -125,8 +123,8 @@ export const ProfileProvider = (props) => {
   };
 
   useEffect(() => {
-    const fetchProfile = async (id) => {
-      const { data, error } = await fetchProfileHelper(id);
+    const fetchProfile = async () => {
+      const { data, error } = await fetchProfileHelper();
 
       if (data || data === null) {
         setProfile(data);
@@ -146,7 +144,7 @@ export const ProfileProvider = (props) => {
     setCustomerId(sub);
 
     if (customerId) {
-      fetchProfile(customerId);
+      fetchProfile();
     }
   }, [isAuth0Loading, user, customerId]);
 

@@ -20,8 +20,7 @@ export const RewardsDetails = () => {
     }
 
     try {
-      const { data } = await axios.post("/api/accounts/adjust", {
-        id: rewards.id,
+      const { data } = await axios.post("/api/accounts/balance/update", {
         points: randomPointsAdjustment,
       });
 
