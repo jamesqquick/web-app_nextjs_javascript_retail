@@ -2,12 +2,19 @@ import { ProfileDetails } from "@/components/details/profile-details";
 import { RewardsDetails } from "@/components/details/rewards-details";
 import { ContentLayout } from "@/components/layouts/content-layout/content-layout";
 import { PageLayout } from "@/components/layouts/page-layout/page-layout";
-import { withProfile } from "@/containers/with-profile";
+import { withProgressiveProfiling } from "@/containers/with-progressive-profiling";
+import { useProgressiveProfiling } from "@/context/progressive-profiling-context";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import React from "react";
 import styles from "./profile.module.css";
 
-const Profile = () => {
+const Index = () => {
+  const { isProfileLoading } = useProgressiveProfiling();
+
+  if (isProfileLoading) {
+    return null;
+  }
+
   return (
     <PageLayout>
       <ContentLayout
@@ -24,4 +31,4 @@ const Profile = () => {
   );
 };
 
-export default withPageAuthRequired(withProfile(Profile));
+export default withPageAuthRequired(withProgressiveProfiling(Index));

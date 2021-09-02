@@ -1,14 +1,14 @@
 import { Button } from "@/components/buttons/button/button";
 import { FieldListItem } from "@/components/lists/field-list-item/field-list-item";
 import { List } from "@/components/lists/list/list";
-import { useProfile } from "@/context/profile-context";
+import { useProgressiveProfiling } from "@/context/progressive-profiling-context";
 import { getRandomPointsValue } from "@/utils/random";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "./detail-list.module.css";
 
 export const RewardsDetails = () => {
-  const { rewards, updateRewards } = useProfile();
+  const { rewards, profile, updateProfile } = useProgressiveProfiling();
   const [randomPointsAdjustment, setRandomPointsAdjustment] =
     useState(undefined);
 
@@ -20,22 +20,19 @@ export const RewardsDetails = () => {
     }
 
     try {
-      const { accountId } = rewards;
-
-      const { data } = await axios.post("/api/accounts/adjust", {
-        id: accountId,
+      const { data } = await axios.post("/api/accounts/balance/update", {
         points: randomPointsAdjustment,
       });
 
       const { id, createdAt, balance } = data;
 
       const rewardsUpdate = {
-        accountId: id,
+        id,
         createdAt,
         balance,
       };
 
-      updateRewards(rewardsUpdate);
+      updateProfile({ ...profile, rewards: rewardsUpdate });
 
       setRandomPointsAdjustment(getRandomPointsValue());
     } catch (error) {
@@ -52,12 +49,8 @@ export const RewardsDetails = () => {
     setRandomPointsAdjustment(getRandomPointsValue());
   }, []);
 
-  if (!rewards) {
-    return <List title={listTitle} />;
-  }
-
   if (rewards) {
-    const { accountId, balance, createdAt } = rewards;
+    const { id, balance, createdAt } = rewards;
 
     const dateObject = new Date(createdAt);
 
@@ -66,7 +59,7 @@ export const RewardsDetails = () => {
       fields: [
         {
           label: "Member ID",
-          value: accountId,
+          value: id,
         },
         {
           label: "Points Balance",
@@ -98,5 +91,5 @@ export const RewardsDetails = () => {
     );
   }
 
-  return null;
+  return <List title={listTitle} />;
 };
