@@ -5,19 +5,11 @@ dotenv.config();
 
 const authConfig = {
   domain: process.env.AUTH0_DOMAIN,
-  clientId: process.env.AUTH0_MANAGEMENT_API_CLIENT_ID,
-  clientSecret: process.env.AUTH0_MANAGEMENT_API_CLIENT_SECRET,
-  audience: process.env.AUTH0_MANAGEMENT_API_AUDIENCE,
+  clientId: process.env.AUTH0_CLIENT_ID,
+  clientSecret: process.env.AUTH0_CLIENT_SECRET,
 };
 
-if (
-  !(
-    authConfig.domain &&
-    authConfig.audience &&
-    authConfig.clientId &&
-    authConfig.clientSecret
-  )
-) {
+if (!(authConfig.domain && authConfig.clientId && authConfig.clientSecret)) {
   process.exit(1);
 }
 
@@ -31,9 +23,4 @@ export const sendVerificationEmail = async (customerId) => {
   await managementAPI.sendEmailVerification({
     user_id: customerId,
   });
-  // try {
-  //
-  // } catch (error) {
-  //   throw new Error("unable to send verification email");
-  // }
 };

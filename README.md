@@ -59,6 +59,57 @@ node -e "console.log(crypto.randomBytes(32).toString('hex'))"
 
 - The `AUTH0_BASE_URL` value is the URL from where you are serving your application.
 
+### Access the Auth0 Management API
+
+You'll use the [Auth0 Management API](https://auth0.com/docs/api/management/v2) to implement email verification in your application. 
+
+Start by installing the [Auth0 Management API SDK for Node.js](https://github.com/auth0/node-auth0):
+
+```bash
+npm install auth0
+```
+
+Then, open your `.env` file and add a new `AUTH0_DOMAIN` value to it:
+
+```bash
+AUTH0_ISSUER_BASE_URL=https://<AUTH0_DOMAIN>
+AUTH0_CLIENT_ID=<...>
+AUTH0_CLIENT_SECRET=<...>
+AUTH0_SECRET=<...>
+AUTH0_BASE_URL=http://localhost:4040
+AUTH0_DOMAIN=
+
+# Other values related to Prisma or your application
+```
+
+The value of `AUTH0_DOMAIN` is the value of `AUTH0_ISSUER_BASE_URL` without the protocol, `https://`.
+
+Restart your Next.js server for it to recognize the changes that you've made to `.env`.
+
+This Next.js web application uses the [`sendEmailVerification()` method](https://auth0.github.io/node-auth0/module-management.ManagementClient.html#sendEmailVerification) from the SDK to call the [`POST /api/v2/jobs/verification-email`](https://auth0.com/docs/api/management/v2#!/Jobs/post_verification_email) endpoint:
+
+  - This endpoint sends an email to the specified user that asks them to click a link to [verify their email address](https://auth0.com/docs/brand-and-customize/email/manage-email-flow#verification-email).
+    
+  - Your web application must have the `update:users` permission from the Management API to perform this operation.
+
+As such, follow these steps to assign permissions from the Management API to your Next.js web application:
+
+- Open the ["APIs" section of the Auth0 Dashboard](https://manage.auth0.com/#/apis).
+  
+- Click on the "Auth0 Management API" option.
+
+- Click on the "Machine to Machine Applications" tab.
+
+- Locate your Auth0 web application register: `WHATABYTE Store`, or any other name you gave to your application earlier in the Auth0 dashboard.
+
+- Click on the listing's toggle to switch it to "Authorized".
+
+- Then, click on the arrow next to the toggle to display the menu that lets you assign Management API permissions to your Next.js web application.
+
+- Select `update:users` from the "Permissions" menu and click the "Update" button.
+
+You can follow these last steps in the future as your application grows and you need to perform more complex tasks easily in the Auth0 platform, such as accessing the phone number that your customers used to set up Multi-Factor Authentication (MFA). 
+
 ### Set up the project
 
 Install the project dependencies:
