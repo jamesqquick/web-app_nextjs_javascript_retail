@@ -40,12 +40,12 @@ Next, locate the **"Basic Information"** section. Store the **"Domain"**, **"Cli
 ```bash
 AUTH0_ISSUER_BASE_URL=https://<AUTH0_DOMAIN>
 AUTH0_CLIENT_ID=
-AUTH0_CLIENT_SECRET=82k8V04pQ-s2B3nzJ3IvUD3VJjHzFnWb8GtvzYh6j8VQZPfCWHxW87WVcb53T8WU
-AUTH0_SECRET=35ffc01abbd8f95b85493e546db1b4c7682a002bd0765bf9b8993a5fbf10a365
+AUTH0_CLIENT_SECRET=
+AUTH0_SECRET=
 AUTH0_BASE_URL=http://localhost:4040
 ```
 
-- For the `AUTH0_ISSUER_BASE_URL` value, `<AUTH0_DOMAIN>` is your **Domain** value.
+- For the `AUTH0_ISSUER_BASE_URL` value, replace `<AUTH0_DOMAIN>` with your **Domain** value.
 
 - `AUTH0_CLIENT_ID` is your **Client ID** value.
 
