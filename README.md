@@ -122,6 +122,12 @@ npm install
 
 This project uses Next.js API routes and Prisma to quickly create CRUD endpoints.
 
+You will need to have a SQL DB configured and setup. You can use SQlite local to your machine, setup a Postgres DB on Heroku, etc. Once you do, add your database connection string in your `.env` file.
+
+```
+DATABASE_URL="<YOUR_CONNECTION_STRING>"
+```
+
 Run the following command to apply the most recent migration (`prisma/migrations/...`) and start the database:
 
 ```bash
